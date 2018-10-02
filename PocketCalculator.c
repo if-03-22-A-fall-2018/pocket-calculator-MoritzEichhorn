@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <float.h>
 
 void printMenu(){
   printf("Choose one of the following operations: \n");
