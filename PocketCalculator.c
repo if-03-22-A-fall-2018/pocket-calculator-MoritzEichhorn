@@ -1,0 +1,80 @@
+#include <stdio.h>
+
+void printMenu(){
+  printf("Choose one of the following operations: \n");
+  printf("  Add (1)\n");
+  printf("  Subtract (2)\n");
+  printf("  Multiply (3)\n");
+  printf("  Divide (4)\n");
+  printf("  Stop program (-1)\n");
+  printf("Enter your choice: ");
+}
+
+void readDecision(int* decision){
+  do {
+    scanf("%d", decision);
+    if((*decision < -1)||(*decision > 4)||(*decision == 0))
+    {
+      printf("Input not allowed, please try again\n\n");
+      printMenu();
+    }
+  } while((*decision < -1)||(*decision > 4)||(*decision == 0));
+}
+
+void readOperands(double* operand_1, double* operand_2){
+  printf("Please enter the first operand: ");
+  scanf("%lf",operand_1);
+  printf("Please enter the second operand: ");
+  scanf("%lf",operand_2);
+}
+
+void printResult(double operand_1, double operand_2,double result, char computeSign){
+  printf("%lf %c %lf = %lf\n\n",operand_1, computeSign, operand_2, result);
+}
+
+void performOperations(double operand_1, double operand_2, int decision){
+  double result;
+  switch (decision) {
+    case 1:
+      result = operand_1 + operand_2;
+      printResult(operand_1, operand_2, result, '+');
+      break;
+    case 2:
+      result = operand_1 - operand_2;
+      printResult(operand_1, operand_2, result, '-');
+      break;
+    case 3:
+      result = operand_1 * operand_2;
+      printResult(operand_1, operand_2, result, '*');
+      break;
+    case 4:
+      if(operand_2 != 0)
+      {
+        result = operand_1 / operand_2;
+        printResult(operand_1, operand_2, result, '/');
+      }
+      else
+      {
+        printf("Division by zero\n\n");
+      }
+      break;
+  }
+}
+
+int main(int argc, char const *argv[]) {
+  int decision;
+  double operand_1;
+  double operand_2;
+
+  while(decision != -1)
+  {
+    printMenu();
+    readDecision(&decision);
+    if(decision != -1)
+    {
+      readOperands(&operand_1, &operand_2);
+      performOperations(operand_1, operand_2, decision);
+    }
+  }
+  return 0;
+}
