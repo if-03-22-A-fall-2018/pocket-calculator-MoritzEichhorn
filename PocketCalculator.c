@@ -33,31 +33,100 @@ void printResult(double operand_1, double operand_2,double result, char computeS
   printf("%lf %c %lf = %lf\n\n",operand_1, computeSign, operand_2, result);
 }
 
+void add(double operand_1, double operand_2){
+  if((operand_1 > 0) && (operand_2 > 0) && ((DBL_MAX - operand_1) < operand_2))
+  {
+    printf("Number owerflow\n");
+  }
+  else if((operand_1 < 0) && (operand_2 < 0) && ((DBL_MIN - operand_1) > operand_2))
+  {
+    printf("Number underflow\n");
+  }
+  else
+  {
+    printResult(operand_1, operand_2, operand_1 + operand_2, '+');
+  }
+}
+
+void subtract(double operand_1, double operand_2){
+  if((operand_1 > 0) && (operand_2 < 0) && ((DBL_MAX + operand_2) < operand_1))
+  {
+    printf("Number owerflow\n");
+  }
+  else if((operand_1 < 0) && (operand_2 > 0) && ((DBL_MIN + operand_2) > operand_1))
+  {
+    printf("Number underflow\n");
+  }
+  else
+  {
+    printResult(operand_1, operand_2, operand_1 - operand_2, '-');
+  }
+}
+
+void multiply(double operand_1, double operand_2)
+{
+  if(((operand_1 < 0) && (operand_2 < 0)) || ((operand_1 < 0) && (operand_2 > 0)))
+  {
+    operand_1 *= -1;
+    operand_2 *= -1;
+  }
+
+  if((operand_1 > 0) && (operand_2 > 0) && ((DBL_MAX / operand_1) < operand_2))
+  {
+    printf("Number owerflow\n");
+  }
+  else if((operand_1 > 0) && (operand_2 < -1) && ((DBL_MIN / operand_1) > operand_2))
+  {
+    printf("Number underflow\n");
+  }
+  else
+  {
+    printResult(operand_1, operand_2, operand_1 * operand_2, '*');
+  }
+}
+
+void divide(double operand_1, double operand_2)
+{
+  if(operand_2 != 0)
+  {
+    if(((operand_1 <= 0)&&(operand_2 < 0))||((operand_1 <= 0)&&(operand_2 > 0)))
+    {
+      operand_1 *= -1;
+      operand_2 *= -1;
+    }
+
+    if(((operand_2 > 0) && (operand_2 < 1)) && ((DBL_MAX * operand_2) < operand_1))
+    {
+      printf("Number owerflow\n");
+    }
+    else if(((operand_2 < 0) && (operand_2 > -1)) && ((DBL_MIN * operand_2) > operand_1))
+    {
+      printf("Number underflow\n");
+    }
+    else
+    {
+      printResult(operand_1, operand_2, operand_1 / operand_2, '/');
+    }
+  }
+  else
+  {
+    printf("Division by zero\n\n");
+  }
+}
+
 void performOperations(double operand_1, double operand_2, int decision){
-  double result;
   switch (decision) {
     case 1:
-      result = operand_1 + operand_2;
-      printResult(operand_1, operand_2, result, '+');
+      add(operand_1, operand_2);
       break;
     case 2:
-      result = operand_1 - operand_2;
-      printResult(operand_1, operand_2, result, '-');
+      subtract(operand_1, operand_2);
       break;
     case 3:
-      result = operand_1 * operand_2;
-      printResult(operand_1, operand_2, result, '*');
+      multiply(operand_1, operand_2);
       break;
     case 4:
-      if(operand_2 != 0)
-      {
-        result = operand_1 / operand_2;
-        printResult(operand_1, operand_2, result, '/');
-      }
-      else
-      {
-        printf("Division by zero\n\n");
-      }
+      divide(operand_1, operand_2);
       break;
   }
 }
