@@ -1,3 +1,15 @@
+/*----------------------------------------------------------
+ *				HTBLA-Leonding / Class: 2AHIF
+ * ---------------------------------------------------------
+ * Exercise Number: 2
+ * Title:			Pocket Calculator
+ * Author:			Eichhorn Moritz
+ * ----------------------------------------------------------
+ * Description:
+ * It's a caclulator with the four basic calculus.
+ * ----------------------------------------------------------
+ */
+
 #include <stdio.h>
 #include <float.h>
 
