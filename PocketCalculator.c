@@ -48,7 +48,7 @@ void printResult(double operand_1, double operand_2,double result, char computeS
 void add(double operand_1, double operand_2){
   if((operand_1 > 0) && (operand_2 > 0) && ((DBL_MAX - operand_1) < operand_2))
   {
-    printf("Number owerflow\n");
+    printf("Number overflow\n");
   }
   else if((operand_1 < 0) && (operand_2 < 0) && ((DBL_MIN - operand_1) > operand_2))
   {
@@ -63,7 +63,7 @@ void add(double operand_1, double operand_2){
 void subtract(double operand_1, double operand_2){
   if((operand_1 > 0) && (operand_2 < 0) && ((DBL_MAX + operand_2) < operand_1))
   {
-    printf("Number owerflow\n");
+    printf("Number overflow\n");
   }
   else if((operand_1 < 0) && (operand_2 > 0) && ((DBL_MIN + operand_2) > operand_1))
   {
@@ -77,15 +77,18 @@ void subtract(double operand_1, double operand_2){
 
 void multiply(double operand_1, double operand_2)
 {
+  int multiplierForOutput = 1;
+
   if(((operand_1 < 0) && (operand_2 < 0)) || ((operand_1 < 0) && (operand_2 > 0)))
   {
     operand_1 *= -1;
     operand_2 *= -1;
+    multiplierForOutput = -1;
   }
 
   if((operand_1 > 0) && (operand_2 > 0) && ((DBL_MAX / operand_1) < operand_2))
   {
-    printf("Number owerflow\n");
+    printf("Number overflow\n");
   }
   else if((operand_1 > 0) && (operand_2 < -1) && ((DBL_MIN / operand_1) > operand_2))
   {
@@ -93,31 +96,34 @@ void multiply(double operand_1, double operand_2)
   }
   else
   {
-    printResult(operand_1, operand_2, operand_1 * operand_2, '*');
+    printResult(operand_1*multiplierForOutput, operand_2*multiplierForOutput, operand_1 * operand_2, '*');
   }
 }
 
 void divide(double operand_1, double operand_2)
 {
+  int multiplierForOutput = 1;
+
   if(operand_2 != 0)
   {
     if(((operand_1 <= 0)&&(operand_2 < 0))||((operand_1 <= 0)&&(operand_2 > 0)))
     {
+      multiplierForOutput = -1;
       operand_1 *= -1;
       operand_2 *= -1;
     }
 
     if(((operand_2 > 0) && (operand_2 < 1)) && ((DBL_MAX * operand_2) < operand_1))
     {
-      printf("Number owerflow\n");
+      printf("Number overflow\n");
     }
-    else if(((operand_2 < 0) && (operand_2 > -1)) && ((DBL_MIN * operand_2) > operand_1))
+    else if(((operand_2 < 0) && (operand_2 > -1)) && ((DBL_MIN * operand_2) < operand_1))
     {
       printf("Number underflow\n");
     }
     else
     {
-      printResult(operand_1, operand_2, operand_1 / operand_2, '/');
+      printResult(operand_1*multiplierForOutput, operand_2*multiplierForOutput, operand_1 / operand_2, '/');
     }
   }
   else
